@@ -1,0 +1,9 @@
+@startuml
+class JournalEntry {
+    + Date : string <<get>> <<set>>
+    + Prompt : string <<get>> <<set>>
+    + Response : string <<get>> <<set>>
+    + JournalEntry(date:string, prompt:string, response:string)
+    + Display() : void
+}
+@enduml
