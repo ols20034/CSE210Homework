@@ -1,0 +1,9 @@
+@startuml
+class Resume {
+    + _name : string
+    + Display() : void
+}
+class "List`1"<T> {
+}
+Resume o-> "_jobs<Job>" "List`1"
+@enduml

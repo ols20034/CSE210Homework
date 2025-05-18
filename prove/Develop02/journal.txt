@@ -1,0 +1,34 @@
+What does the program do?
+    help people record events in their life by supplying prompts    
+    then saving their responses along with the question and the date
+    to a file.
+
+
+What user inputes does it have?
+    date
+    journal entree
+    read/write prompts
+    filename
+
+
+What output does it produce?
+    random prompt
+    send to text file
+    previous journal entries
+
+what classes do we want?
+    program
+        skip prompt
+        save to file
+        load from file
+    entry
+        -date
+        -entry
+        -title/theme
+        
+    prompt
+        -number
+        -text (dict)
+
+demonstrate abstraction using member variables and methods appropriately
+
