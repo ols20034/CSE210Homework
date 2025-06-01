@@ -1,5 +1,31 @@
-@startuml
+@startuml ScriptureMemorization
+
 class Program {
-    Program.cs
+    +Main()
 }
+
+class Scripture {
+    - List<Word> Words
+    + HideRandomWords(int count)
+    + AllWordsHidden()
+}
+
+class ScriptureReference {
+    - string Book
+    - int Chapter
+    - int StartVerse
+    - int? EndVerse
+    + ToString()
+}
+
+class Word {
+    - string Text
+    - bool IsHidden
+    + Hide()
+}
+
+Program --> Scripture : Uses
+Scripture --> Word : Contains
+Scripture --> ScriptureReference : Has
+
 @enduml
