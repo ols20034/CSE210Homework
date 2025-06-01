@@ -7,7 +7,7 @@ class ScriptureReference
     public int StartVerse { get; }
     public int? EndVerse { get; }
 
-    // Overloaded constructor to accept a string reference (e.g., "John 3:16")
+    // constructor to accept a string reference (e.g., "John 3:16")
     public ScriptureReference(string reference)
     {
         var parts = reference.Split(new[] { ' ', ':', '-' }, StringSplitOptions.RemoveEmptyEntries);
