@@ -1,0 +1,9 @@
+@startuml
+class Job {
+    + _jobTitle : string
+    + _company : string
+    + _startYear : int
+    + _endYear : int
+    + Display() : void
+}
+@enduml

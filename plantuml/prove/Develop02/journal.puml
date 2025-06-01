@@ -1,0 +1,11 @@
+@startuml
+class Journal {
+    + AddEntry(prompt:string, response:string) : void
+    + DisplayEntries() : void
+    + SaveToFile(filename:string) : void
+    + LoadFromFile(filename:string) : void
+}
+class "List`1"<T> {
+}
+Journal o-> "Entries<JournalEntry>" "List`1"
+@enduml
