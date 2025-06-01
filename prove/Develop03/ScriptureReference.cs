@@ -9,21 +9,19 @@ class ScriptureReference
 
     // constructor to accept a string reference (e.g., "John 3:16")
     public ScriptureReference(string reference)
+{
+    var parts = reference.Split(new[] { ' ', ':', '-' }, StringSplitOptions.RemoveEmptyEntries);
+    if (parts.Length < 3)
     {
-        var parts = reference.Split(new[] { ' ', ':', '-' }, StringSplitOptions.RemoveEmptyEntries);
-
-        if (parts.Length >= 3)
-        {
-            Book = parts[0];
-            Chapter = int.Parse(parts[1]);
-            StartVerse = int.Parse(parts[2]);
-            EndVerse = parts.Length == 4 ? int.Parse(parts[3]) : (int?)null;
-        }
-        else
-        {
-            throw new ArgumentException("Invalid scripture reference format.");
-        }
+        throw new ArgumentException($"Invalid scripture reference format: {reference}");
     }
+
+    // Extract the book name dynamically
+    Book = string.Join(" ", parts.Take(parts.Length - 2)); // All but last two parts
+    Chapter = int.Parse(parts[parts.Length - 2]); // Second-to-last part
+    StartVerse = int.Parse(parts[parts.Length - 1]); // Last part
+    EndVerse = parts.Length == 4 ? int.Parse(parts[parts.Length - 1]) : (int?)null;
+}
 
     // Standard constructor for explicit reference creation
     public ScriptureReference(string book, int chapter, int startVerse, int? endVerse = null)

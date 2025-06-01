@@ -64,74 +64,75 @@ class Program
     }
 
     static void MemorizeScripture()
-{
-    List<Scripture> scriptures = LoadScriptures();
-
-    if (scriptures.Count == 0)
     {
-        Console.WriteLine("No scriptures stored. Add some first!");
-        return;
-    }
+        List<Scripture> scriptures = LoadScriptures();
 
-    Console.WriteLine("\nStored Scriptures:");
-    for (int i = 0; i < scriptures.Count; i++)
-    {
-        Console.WriteLine($"{i + 1}. {scriptures[i].Reference}");
-    }
-
-    Console.Write("Select a scripture to memorize (number): ");
-    if (!int.TryParse(Console.ReadLine(), out int selection) || selection < 1 || selection > scriptures.Count)
-    {
-        Console.WriteLine("Invalid selection.");
-        return;
-    }
-
-    Scripture scripture = scriptures[selection - 1];
-
-    // adding difficulty level of 1 - 5 random words disappear.
-    Console.Write("\nChoose how many words to hide per step (1-5): ");
-    int wordsToHide;
-    while (!int.TryParse(Avx512BWConsole.ReadLine(), out wordsToHide) || wordsToHide < 1 || wordsToHide > 5)
-    {
-        Console.Write("Invalid input. Enter a number between 1  and 5: ");
-    }
-
-    while (!scripture.AllWordsHidden())
-    {
-        Console.Clear();
-        Console.WriteLine(scripture);
-        Console.WriteLine("\nPress Enter to continue or type 'quit' to exit.");
-        
-        string input = Console.ReadLine();
-        if (input.ToLower() == "quit") break;
-
-        scripture.HideRandomWords(wordsToHide); // user selected random number of words disappear.
-
-    if (scripture.AllWordsHidden())
-    {
-        Console.Clear();
-        Console.WriteLine("Congratulations! You've memorized this scripture!");
-    }
-}
-
-    static List<Scripture> LoadScriptures()
-    {
-        List<Scripture> scriptures = new List<Scripture>();
-
-        if (File.Exists(filePath))
+        if (scriptures.Count == 0)
         {
-            foreach (string line in File.ReadLines(filePath))
+            Console.WriteLine("No scriptures stored. Add some first!");
+            return;
+        }
+
+        Console.WriteLine("\nStored Scriptures:");
+        for (int i = 0; i < scriptures.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {scriptures[i].Reference}");
+        }
+
+        Console.Write("Select a scripture to memorize (number): ");
+        if (!int.TryParse(Console.ReadLine(), out int selection) || selection < 1 || selection > scriptures.Count)
+        {
+            Console.WriteLine("Invalid selection.");
+            return;
+        }
+
+        Scripture scripture = scriptures[selection - 1];
+
+        // adding difficulty level of 1 - 5 random words disappear.
+        Console.Write("\nChoose how many words to hide per step (1-5): ");
+        int wordsToHide;
+        while (!int.TryParse(Console.ReadLine(), out wordsToHide) || wordsToHide < 1 || wordsToHide > 5)
+        {
+            Console.Write("Invalid input. Enter a number between 1  and 5: ");
+        }
+
+        while (!scripture.AllWordsHidden())
+        {
+            Console.Clear();
+            Console.WriteLine(scripture);
+            Console.WriteLine("\nPress Enter to continue or type 'quit' to exit.");
+
+            string input = Console.ReadLine();
+            if (input.ToLower() == "quit") break;
+
+            scripture.HideRandomWords(wordsToHide); // user selected random number of words disappear.
+
+            if (scripture.AllWordsHidden())
             {
-                string[] parts = line.Split(new[] { ',' }, 2);
-                if (parts.Length == 2)
-                {
-                    ScriptureReference reference = new ScriptureReference(parts[0]);
-                    Scripture scripture = new Scripture(reference, parts[1].Trim('"'));
-                    scriptures.Add(scripture);
-                }
+                Console.Clear();
+                Console.WriteLine("Congratulations! You've memorized this scripture!");
             }
         }
 
-        return scriptures;
+        static List<Scripture> LoadScriptures()
+        {
+            List<Scripture> scriptures = new List<Scripture>();
+
+            if (File.Exists(filePath))
+            {
+                foreach (string line in File.ReadLines(filePath))
+                {
+                    string[] parts = line.Split(new[] { ',' }, 2);
+                    if (parts.Length == 2)
+                    {
+                        ScriptureReference reference = new ScriptureReference(parts[0]);
+                        Scripture scripture = new Scripture(reference, parts[1].Trim('"'));
+                        scriptures.Add(scripture);
+                    }
+                }
+            }
+
+            return scriptures;
+        }
     }
 }
