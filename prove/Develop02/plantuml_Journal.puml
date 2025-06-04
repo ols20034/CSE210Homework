@@ -1,0 +1,26 @@
+@startuml journal
+
+class Journal {
+    +List<JournalEntry> Entries
+    +void AddEntry(string prompt, string response)
+    +void DisplayEntries()
+    +void SaveToFile(string filename)
+    +void LoadFromFile(string filename)
+}
+
+class JournalEntry {
+    +string Date
+    +string Prompt
+    +string Response
+    +void Display()
+}
+
+class JournalPrompt {
+    -List<string> prompts
+    +string GetPrompt()
+}
+
+Journal --|> JournalEntry : contains
+Journal --|> JournalPrompt : uses prompts
+
+@enduml
