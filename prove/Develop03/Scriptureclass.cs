@@ -1,18 +1,27 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 class Scripture
 {
-    public ScriptureReference Reference { get; }
-    private List<Word> Words;
+    private ScriptureReference _reference;
+    private List<Word> _words;
 
     public Scripture(ScriptureReference reference, string text)
     {
-        Reference = reference;
-        Words = text.Split(' ').Select(word => new Word(word)).ToList();
+        _reference = reference;
+        _words = text.Split(' ').Select(word => new Word(word)).ToList();
+    }
+
+    public ScriptureReference GetReference()
+    {
+        return _reference;
     }
 
     public void HideRandomWords(int count)
     {
         Random random = new Random();
-        List<Word> visibleWords = Words.Where(word => !word.IsHidden).ToList();
+        List<Word> visibleWords = _words.Where(word => !word.IsHidden).ToList();
 
         if (visibleWords.Count == 0) return;
 
@@ -26,11 +35,8 @@ class Scripture
 
     public override string ToString()
     {
-        return $"{Reference}\n" + string.Join(" ", Words);
+        return $"{_reference}\n" + string.Join(" ", _words);
     }
 
-    public bool AllWordsHidden()
-    {
-        return Words.All(word => word.IsHidden);
-    }
+    public bool AllWordsHidden() => _words.All(word => word.IsHidden);
 }
